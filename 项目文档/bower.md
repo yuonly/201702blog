@@ -15,6 +15,12 @@
 
     npm install -g bower
 
+>国外安装超级慢，建议使用淘宝镜像cnpm
+
+    sudo npm install -g cnpm --registry=https://registry.npm.taobao.org
+    cnpm install -g bower
+    
+    
 ###编写.bowerrc的配置文件
 * 创建配置文件，文件名： .bowerrc
    配置bower下载文件到 public/lib。文件内容如下

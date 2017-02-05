@@ -5,13 +5,14 @@
  */
 
 var app = require('../app');
+//开启错误日志
 var debug = require('debug')('201702blog:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-
+//设置端口
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
@@ -64,10 +65,13 @@ function onError(error) {
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
+     //端口没有权限，比如linux下用户不能使用1000以下的端口。只有root用户可以使用
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
+      //退出进程。参数1代表错误退出。0代表正常退出
       process.exit(1);
       break;
+      // error address in use  端口被占用
     case 'EADDRINUSE':
       console.error(bind + ' is already in use');
       process.exit(1);
