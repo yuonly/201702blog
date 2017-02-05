@@ -10,11 +10,13 @@ var users = require('./routes/users');
 
 var app = express();
 
+// app.set('env',process.env.ENV);//这样在控制台可以通过 export ENV=product 方便的切换到生产环境，今儿隐藏掉错误详细信息的输出，不让用户看到  
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //设置模板引擎
 // app.set('view engine', 'ejs');
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 //指定html模板的渲染方法
 app.engine('html',require('ejs').__express);
 
