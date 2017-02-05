@@ -4,13 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+//首页
 var index = require('./routes/index');
+//用户
 var users = require('./routes/users');
+//文章
+var article = require('./routes/article');
 
 var app = express();
 
-// app.set('env',process.env.ENV);//这样在控制台可以通过 export ENV=product 方便的切换到生产环境，今儿隐藏掉错误详细信息的输出，不让用户看到  
+// app.set('env',process.env.ENV);//这样在控制台可以通过 export ENV=product 方便的切换到生产环境，今儿隐藏掉错误详细信息的输出，不让用户看到
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //指定路由
 app.use('/', index);
 app.use('/users', users);
+app.use('/article',article);
 
 // catch 404 and forward to error handler
 // 捕获404错误，并转发到错误处理中间件
