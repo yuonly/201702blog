@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var userModel = require('../model/users');
 var utils = require('../utils');
+var flash = require('connect-flash');
 /* GET users listing. */
 router.get('/login', function (req, res, next) {
     res.render('users/login', {title: '登录'});
@@ -12,11 +13,15 @@ router.post('/login', function (req, res, next) {
     var password = utils.md5(user.password);
     userModel.findOne({username: username, password: password}, function (err, doc) {
         if (err) {
+            reg.flash('error','登录失败');
             res.redirect('back');
         } else {
-            if (doc) {
-                console.log('登录成功');
+            if (doc) {//登录成功后，将数据写入session
+                req.session.user = doc;
+                req.flash('success','登录成功');
+                res.redirect('/');
             } else {
+                req.flash('error','用户名或密码错误');
                 res.redirect('back');
             }
         }
@@ -28,11 +33,20 @@ router.get('/reg', function (req, res, next) {
 router.post('/reg', function (req, res, next) {
     req.body.password = utils.md5(req.body.password);
     userModel.create(req.body, function (err, doc) {
-        console.log(doc);
-        res.redirect('/users/login');
+        if(err){
+            reg.flash('error','注册失败');
+            res.redirect('back');
+        }else{
+            req.flash('success','注册成功');
+            res.redirect('/users/login');
+        }
+
     });
 });
 router.get('/logout', function (req, res, next) {
-    res.render('index', {title: '退出'});
+    req.session.user = null;
+    req.flash('success','退出成功');
+    res.redirect('/');
 });
+
 module.exports = router;
