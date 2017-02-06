@@ -3,11 +3,13 @@ var router = express.Router();
 var userModel = require('../model/users');
 var utils = require('../utils');
 var flash = require('connect-flash');
+var auth = require('../middleware/auth');//引入权限验证中间件
 /* GET users listing. */
-router.get('/login', function (req, res, next) {
+router.get('/login',auth.checkNotLogin, function (req, res, next) {
     res.render('users/login', {title: '登录'});
 });
-router.post('/login', function (req, res, next) {
+
+router.post('/login',auth.checkNotLogin, function (req, res, next) {
     var user = req.body;
     var username = user.username;
     var password = utils.md5(user.password);
@@ -27,10 +29,10 @@ router.post('/login', function (req, res, next) {
         }
     });
 });
-router.get('/reg', function (req, res, next) {
+router.get('/reg',auth.checkNotLogin, function (req, res, next) {
     res.render('users/reg', {title: '注册'});
 });
-router.post('/reg', function (req, res, next) {
+router.post('/reg',auth.checkNotLogin, function (req, res, next) {
     req.body.password = utils.md5(req.body.password);
     userModel.create(req.body, function (err, doc) {
         if(err){
@@ -43,7 +45,7 @@ router.post('/reg', function (req, res, next) {
 
     });
 });
-router.get('/logout', function (req, res, next) {
+router.get('/logout',auth.checkLogin, function (req, res, next) {
     req.session.user = null;
     req.flash('success','退出成功');
     res.redirect('/');
