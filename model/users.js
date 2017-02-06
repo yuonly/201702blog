@@ -10,7 +10,9 @@ var db = mongoose.connect(config.dbUrl);
 //创建集合模型
 var userModel = mongoose.model('users',mongoose.Schema({
     username:String,
-    password:String
+    password:String,
+    email:String,
+    avatar:String
 }));
 
 module.exports = userModel;

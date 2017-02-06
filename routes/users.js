@@ -34,6 +34,7 @@ router.get('/reg',auth.checkNotLogin, function (req, res, next) {
 });
 router.post('/reg',auth.checkNotLogin, function (req, res, next) {
     req.body.password = utils.md5(req.body.password);
+    req.body.avatar = 'https://secure.gravatar.com/avatar/'+utils.md5(req.body.email)+'?s=48';
     userModel.create(req.body, function (err, doc) {
         if(err){
             reg.flash('error','注册失败');
