@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('../model/users');
+// var userModel = require('../model/users');
 var utils = require('../utils');
 var flash = require('connect-flash');
 var auth = require('../middleware/auth');//引入权限验证中间件
@@ -13,7 +13,7 @@ router.post('/login',auth.checkNotLogin, function (req, res, next) {
     var user = req.body;
     var username = user.username;
     var password = utils.md5(user.password);
-    userModel.findOne({username: username, password: password}, function (err, doc) {
+    Model('users').findOne({username: username, password: password}, function (err, doc) {
         if (err) {
             reg.flash('error','登录失败');
             res.redirect('back');

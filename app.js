@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//引入模型
+require('./model/index');
 
 //为了支持会话新增内容
 //引入session中间件，req中多了，req.session
