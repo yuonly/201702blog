@@ -12,7 +12,7 @@ module.exports = {
         avatar:String
     },
     articleModel:{
-        user:{type:ObjectId,ref:'User'},
+        user:{type:ObjectId,ref:'users'},
         title:String,
         content:String,
         createTime:{type:Date,default:Date.now}

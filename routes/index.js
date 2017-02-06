@@ -4,8 +4,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    //                         将article中的关联user到对应的users集合中获取用户数据对象
 
-    res.render('index', {title: '首页'});
+    Model('articles').find({}).populate('user').exec(function(err,articles){
+        res.render('index',{articles:articles});
+    })
 });
 
 module.exports = router;
