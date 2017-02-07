@@ -31,7 +31,7 @@ router.post('/add',auth.checkLogin,upload.single('thumb'), function (req, res, n
                 res.redirect('/');
             }
         }
-    })
+    });
 
 });
 
