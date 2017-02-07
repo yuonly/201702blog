@@ -15,6 +15,7 @@ module.exports = {
         user:{type:ObjectId,ref:'users'},
         title:String,
         content:String,
+        thumb:String,
         createTime:{type:Date,default:Date.now}
     }
 }
